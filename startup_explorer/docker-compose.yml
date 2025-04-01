@@ -20,7 +20,7 @@ services:
       - .:/app
       - ../analysis:/analysis
     ports:
-      - "8081:8000"
+      - "53445:8000"
     depends_on:
       - db
     environment:
