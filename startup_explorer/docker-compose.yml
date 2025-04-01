@@ -11,7 +11,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     ports:
-      - "5432:5432"
+      - "15432:5432"
 
   web:
     build: .
@@ -20,7 +20,7 @@ services:
       - .:/app
       - ../analysis:/analysis
     ports:
-      - "8000:8000"
+      - "8081:8000"
     depends_on:
       - db
     environment:
