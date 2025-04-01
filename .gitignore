@@ -1,0 +1,48 @@
+# Ambiente virtuale
+.venv/
+venv/
+
+# File Python compilati
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# File temporanei di sistema
+.DS_Store
+Thumbs.db
+
+# Database locale SQLite
+*.sqlite3
+db.sqlite3
+
+# File di log
+*.log
+
+# Static e media generati
+staticfiles/
+media/
+
+# File Django generati
+*.pot
+*.mo
+
+# Migrations compilate (facoltativo: puoi ignorarle solo temporaneamente)
+**/migrations/*.pyc
+**/migrations/__pycache__/
+# Se vuoi ignorare tutte le migration tranne `__init__.py`, usa:
+# **/migrations/[!__init__]*.py
+
+# Secret e configurazioni locali
+.env
+.env.*
+
+# File di configurazione IDE/editor
+.vscode/
+.idea/
+*.swp
+
+# Docker
+*.pid
+docker-compose.override.yml

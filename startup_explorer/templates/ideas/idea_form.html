@@ -1,0 +1,218 @@
+{% extends "base.html" %}
+
+{% block title %}Crea Nuova Idea - Startup Explorer{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Aggiungi una nuova idea</h1>
+    
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Inserisci i dettagli della tua idea</h5>
+        </div>
+        <div class="card-body">
+            <form method="post" novalidate>
+                {% csrf_token %}
+                
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="id_nome" class="form-label">Nome dell'idea</label>
+                        {{ form.nome }}
+                        {% if form.nome.errors %}
+                        <div class="text-danger">
+                            {% for error in form.nome.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        <label for="id_target" class="form-label">Target</label>
+                        {{ form.target }}
+                        {% if form.target.errors %}
+                        <div class="text-danger">
+                            {% for error in form.target.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="id_descrizione" class="form-label">Descrizione sintetica</label>
+                    {{ form.descrizione }}
+                    {% if form.descrizione.errors %}
+                    <div class="text-danger">
+                        {% for error in form.descrizione.errors %}
+                        {{ error }}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="mb-3">
+                    <label for="id_problema_risolto" class="form-label">Problema specifico che risolve</label>
+                    {{ form.problema_risolto }}
+                    {% if form.problema_risolto.errors %}
+                    <div class="text-danger">
+                        {% for error in form.problema_risolto.errors %}
+                        {{ error }}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="mb-3">
+                    <label for="id_unique_value_proposition" class="form-label">Unique Value Proposition</label>
+                    {{ form.unique_value_proposition }}
+                    {% if form.unique_value_proposition.errors %}
+                    <div class="text-danger">
+                        {% for error in form.unique_value_proposition.errors %}
+                        {{ error }}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="id_settori" class="form-label">Settori/nicchie di riferimento</label>
+                        {{ form.settori }}
+                        {% if form.settori.errors %}
+                        <div class="text-danger">
+                            {% for error in form.settori.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        <label for="id_tecnologie" class="form-label">Tecnologie AI coinvolte</label>
+                        {{ form.tecnologie }}
+                        {% if form.tecnologie.errors %}
+                        <div class="text-danger">
+                            {% for error in form.tecnologie.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="id_modello_revenue" class="form-label">Modello di revenue</label>
+                    {{ form.modello_revenue }}
+                    {% if form.modello_revenue.errors %}
+                    <div class="text-danger">
+                        {% for error in form.modello_revenue.errors %}
+                        {{ error }}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="id_tempo_mvp" class="form-label">Tempo stimato per realizzare un MVP</label>
+                        {{ form.tempo_mvp }}
+                        {% if form.tempo_mvp.errors %}
+                        <div class="text-danger">
+                            {% for error in form.tempo_mvp.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        <label for="id_quadrante" class="form-label">Quadrante</label>
+                        {{ form.quadrante }}
+                        {% if form.quadrante.errors %}
+                        <div class="text-danger">
+                            {% for error in form.quadrante.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <h5 class="mt-4 mb-3">Valutazioni (da 1 a 5)</h5>
+                <div class="row mb-3">
+                    <div class="col-md-3">
+                        <label for="id_fattibilita_tecnica" class="form-label">Fattibilità tecnica</label>
+                        {{ form.fattibilita_tecnica }}
+                        {% if form.fattibilita_tecnica.errors %}
+                        <div class="text-danger">
+                            {% for error in form.fattibilita_tecnica.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-3">
+                        <label for="id_potenziale_monetizzazione" class="form-label">Potenziale di monetizzazione</label>
+                        {{ form.potenziale_monetizzazione }}
+                        {% if form.potenziale_monetizzazione.errors %}
+                        <div class="text-danger">
+                            {% for error in form.potenziale_monetizzazione.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-3">
+                        <label for="id_competitivita_mercato" class="form-label">Competitività del mercato</label>
+                        {{ form.competitivita_mercato }}
+                        {% if form.competitivita_mercato.errors %}
+                        <div class="text-danger">
+                            {% for error in form.competitivita_mercato.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-3">
+                        <label for="id_impatto_utente" class="form-label">Impatto per l'utente finale</label>
+                        {{ form.impatto_utente }}
+                        {% if form.impatto_utente.errors %}
+                        <div class="text-danger">
+                            {% for error in form.impatto_utente.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary">Salva idea</button>
+                    <a href="{% url 'ideas:idea_list' %}" class="btn btn-outline-secondary">Annulla</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Aggiunge le classi Bootstrap ai form fields
+    document.addEventListener('DOMContentLoaded', function() {
+        // Aggiungi classe form-control a tutti gli input, select e textarea
+        const formControls = document.querySelectorAll('input, select, textarea');
+        formControls.forEach(element => {
+            if (!element.classList.contains('form-check-input')) {
+                element.classList.add('form-control');
+            }
+        });
+        
+        // Aggiungi classe form-select ai select
+        const selects = document.querySelectorAll('select');
+        selects.forEach(element => {
+            element.classList.remove('form-control');
+            element.classList.add('form-select');
+        });
+    });
+</script>
+{% endblock %}

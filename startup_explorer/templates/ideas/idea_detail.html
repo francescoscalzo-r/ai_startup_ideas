@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block title %}{{ idea.nome }} - Startup Explorer{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h2 class="mb-0">{{ idea.nome }}</h2>
+                    <span class="badge bg-light text-dark">{{ idea.get_target_display }}</span>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-subtitle mb-3 text-muted">{{ idea.quadrante }}</h5>
+                    
+                    <div class="mb-4">
+                        <h5>Descrizione</h5>
+                        <p>{{ idea.descrizione }}</p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h5>Problema risolto</h5>
+                        <p>{{ idea.problema_risolto }}</p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h5>Unique Value Proposition</h5>
+                        <p>{{ idea.unique_value_proposition }}</p>
+                    </div>
+                    
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h5>Settori</h5>
+                            <ul class="list-group">
+                                {% for settore in idea.settori.all %}
+                                <li class="list-group-item">{{ settore.nome }}</li>
+                                {% empty %}
+                                <li class="list-group-item">Nessun settore specificato</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Tecnologie AI</h5>
+                            <ul class="list-group">
+                                {% for tech in idea.tecnologie.all %}
+                                <li class="list-group-item">{{ tech.nome }}</li>
+                                {% empty %}
+                                <li class="list-group-item">Nessuna tecnologia specificata</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h5>Modello di revenue</h5>
+                        <p>{{ idea.modello_revenue }}</p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h5>Tempo stimato per MVP</h5>
+                        <p>{{ idea.tempo_mvp }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Valutazioni</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <h6>Fattibilità tecnica</h6>
+                        <div class="rating">
+                            {% for i in "12345" %}
+                                {% if forloop.counter <= idea.fattibilita_tecnica %}
+                                    <i class="fas fa-star text-warning"></i>
+                                {% else %}
+                                    <i class="far fa-star text-muted"></i>
+                                {% endif %}
+                            {% endfor %}
+                            <span class="ms-2">{{ idea.fattibilita_tecnica }}/5</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <h6>Potenziale di monetizzazione</h6>
+                        <div class="rating">
+                            {% for i in "12345" %}
+                                {% if forloop.counter <= idea.potenziale_monetizzazione %}
+                                    <i class="fas fa-star text-warning"></i>
+                                {% else %}
+                                    <i class="far fa-star text-muted"></i>
+                                {% endif %}
+                            {% endfor %}
+                            <span class="ms-2">{{ idea.potenziale_monetizzazione }}/5</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <h6>Competitività del mercato</h6>
+                        <div class="rating">
+                            {% for i in "12345" %}
+                                {% if forloop.counter <= idea.competitivita_mercato %}
+                                    <i class="fas fa-star text-warning"></i>
+                                {% else %}
+                                    <i class="far fa-star text-muted"></i>
+                                {% endif %}
+                            {% endfor %}
+                            <span class="ms-2">{{ idea.competitivita_mercato }}/5</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <h6>Impatto per l'utente finale</h6>
+                        <div class="rating">
+                            {% for i in "12345" %}
+                                {% if forloop.counter <= idea.impatto_utente %}
+                                    <i class="fas fa-star text-warning"></i>
+                                {% else %}
+                                    <i class="far fa-star text-muted"></i>
+                                {% endif %}
+                            {% endfor %}
+                            <span class="ms-2">{{ idea.impatto_utente }}/5</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Likes</h5>
+                </div>
+                <div class="card-body text-center">
+                    <h3><i class="fas fa-thumbs-up text-primary"></i> {{ idea.likes.count }}</h3>
+                    <p>persone hanno messo like a questa idea</p>
+                    
+                    {% if user.is_authenticated %}
+                        <form method="post" action="{% url 'ideas:idea_like' idea.id %}">
+                            {% csrf_token %}
+                            {% if user_liked %}
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="fas fa-thumbs-down"></i> Rimuovi like
+                                </button>
+                            {% else %}
+                                {% if user.likes_disponibili > 0 %}
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-thumbs-up"></i> Metti like
+                                </button>
+                                <p class="mt-2 small">Hai ancora {{ user.likes_disponibili }} like disponibili</p>
+                                {% else %}
+                                <button type="button" class="btn btn-secondary" disabled>
+                                    <i class="fas fa-thumbs-up"></i> Like esauriti
+                                </button>
+                                <p class="mt-2 small text-danger">Hai esaurito i tuoi 5 like disponibili</p>
+                                {% endif %}
+                            {% endif %}
+                        </form>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn btn-outline-primary">
+                            <i class="fas fa-sign-in-alt"></i> Accedi per mettere like
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+            
+            {% if idee_simili %}
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Idee simili</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        {% for idea_simile in idee_simili %}
+                        <li class="list-group-item">
+                            <a href="{% url 'ideas:idea_detail' idea_simile.id %}">{{ idea_simile.nome }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="mt-4">
+        <a href="{% url 'ideas:idea_list' %}" class="btn btn-outline-primary">
+            <i class="fas fa-arrow-left"></i> Torna all'elenco
+        </a>
+    </div>
+</div>
+{% endblock %}

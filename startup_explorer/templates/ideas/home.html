@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Startup Explorer{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="jumbotron">
+        <h1 class="display-4">Startup Explorer</h1>
+        <p class="lead">Esplora, confronta e valuta idee di applicazioni verticali basate su Generative AI.</p>
+        <hr class="my-4">
+        <p>Naviga tra le idee organizzate per quadranti, filtra per caratteristiche specifiche o aggiungi le tue idee.</p>
+        <a class="btn btn-primary btn-lg" href="{% url 'ideas:idea_list' %}" role="button">Esplora tutte le idee</a>
+        {% if user.is_authenticated %}
+            <a class="btn btn-success btn-lg" href="{% url 'ideas:idea_create' %}" role="button">Aggiungi nuova idea</a>
+        {% else %}
+            <a class="btn btn-outline-primary btn-lg" href="{% url 'login' %}" role="button">Accedi per votare</a>
+        {% endif %}
+    </div>
+
+    <h2 class="mt-5 mb-4">Esplora per quadranti</h2>
+    
+    <div class="row">
+        {% for quadrante in quadranti %}
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">{{ quadrante.nome }}</h5>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted">{{ quadrante.get_asse_x_display }} / {{ quadrante.get_asse_y_display }}</h6>
+                    <p class="card-text">{{ quadrante.descrizione }}</p>
+                    <p><strong>Idee in questo quadrante:</strong> {{ quadrante.idee_count }}</p>
+                    
+                    {% if quadrante.idee_top %}
+                    <h6>Idee in evidenza:</h6>
+                    <ul class="list-group list-group-flush">
+                        {% for idea in quadrante.idee_top %}
+                        <li class="list-group-item">
+                            <a href="{% url 'ideas:idea_detail' idea.id %}">{{ idea.nome }}</a>
+                            <span class="badge bg-primary float-end">{{ idea.likes_count }} like</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'ideas:quadrante_detail' quadrante.id %}" class="btn btn-outline-primary">Esplora questo quadrante</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

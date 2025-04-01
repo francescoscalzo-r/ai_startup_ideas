@@ -1,0 +1,122 @@
+/* Custom CSS for Startup Explorer */
+
+/* General styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    background-color: #f8f9fa;
+}
+
+/* Rating stars */
+.rating .fas.fa-star {
+    color: #ffc107;
+}
+
+.rating .far.fa-star {
+    color: #e4e5e9;
+}
+
+/* Card styles */
+.card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-header.bg-primary {
+    background: linear-gradient(135deg, #4e73df 0%, #224abe 100%) !important;
+}
+
+/* Navbar styles */
+.navbar-dark.bg-primary {
+    background: linear-gradient(135deg, #4e73df 0%, #224abe 100%) !important;
+}
+
+/* Button styles */
+.btn-primary {
+    background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+    border: none;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #224abe 0%, #1a3a8e 100%);
+}
+
+/* Jumbotron styles */
+.jumbotron {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 10px;
+    padding: 2rem;
+}
+
+/* Table styles */
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 123, 255, 0.05);
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+}
+
+/* Form styles */
+.form-control:focus, .form-select:focus {
+    border-color: #4e73df;
+    box-shadow: 0 0 0 0.25rem rgba(78, 115, 223, 0.25);
+}
+
+/* Pagination styles */
+.pagination .page-item.active .page-link {
+    background-color: #4e73df;
+    border-color: #4e73df;
+}
+
+.pagination .page-link {
+    color: #4e73df;
+}
+
+/* Footer styles */
+footer {
+    background-color: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+    margin-top: 3rem;
+}
+
+/* Quadrant grid */
+.quadrant-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+/* Badge styles */
+.badge.bg-primary {
+    background: linear-gradient(135deg, #4e73df 0%, #224abe 100%) !important;
+}
+
+/* Alert styles */
+.alert-success {
+    background-color: #e3fcef;
+    border-color: #d0f7e6;
+    color: #1cc88a;
+}
+
+.alert-danger {
+    background-color: #fce3e3;
+    border-color: #f7d0d0;
+    color: #e74a3b;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .quadrant-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .jumbotron {
+        padding: 1.5rem;
+    }
+}

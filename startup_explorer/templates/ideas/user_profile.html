@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Profilo Utente - Startup Explorer{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Profilo</h5>
+                </div>
+                <div class="card-body">
+                    <h4>{{ user.nome }} {{ user.cognome }}</h4>
+                    <p><strong>Username:</strong> {{ user.username }}</p>
+                    <p><strong>Email:</strong> {{ user.email }}</p>
+                    <p><strong>Data registrazione:</strong> {{ user.data_registrazione|date:"d/m/Y" }}</p>
+                    <p><strong>Like disponibili:</strong> <span class="badge bg-primary">{{ user.likes_disponibili }}/5</span></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Idee che ti piacciono</h5>
+                </div>
+                <div class="card-body">
+                    {% if liked_ideas %}
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Quadrante</th>
+                                    <th>Target</th>
+                                    <th>Azioni</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for idea in liked_ideas %}
+                                <tr>
+                                    <td><a href="{% url 'ideas:idea_detail' idea.id %}">{{ idea.nome }}</a></td>
+                                    <td>{{ idea.quadrante }}</td>
+                                    <td>{{ idea.get_target_display }}</td>
+                                    <td>
+                                        <a href="{% url 'ideas:idea_detail' idea.id %}" class="btn btn-sm btn-outline-primary">Dettagli</a>
+                                        <form method="post" action="{% url 'ideas:idea_like' idea.id %}" class="d-inline">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                <i class="fas fa-thumbs-down"></i> Rimuovi like
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="alert alert-info">
+                        <p class="mb-0">Non hai ancora messo like a nessuna idea. Esplora le idee disponibili e metti like a quelle che ti piacciono di più!</p>
+                    </div>
+                    <a href="{% url 'ideas:idea_list' %}" class="btn btn-primary">Esplora idee</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

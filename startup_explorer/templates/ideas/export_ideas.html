@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}Esporta Idee - Startup Explorer{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Esporta Idee</h1>
+    
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Seleziona le idee da esportare</h5>
+        </div>
+        <div class="card-body">
+            <form method="post" action="{% url 'ideas:export_ideas' %}">
+                {% csrf_token %}
+                
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Seleziona</th>
+                                <th>Nome</th>
+                                <th>Quadrante</th>
+                                <th>Target</th>
+                                <th>Like</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for idea in ideas %}
+                            <tr>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="idea_ids" value="{{ idea.id }}" id="idea-{{ idea.id }}">
+                                    </div>
+                                </td>
+                                <td><label for="idea-{{ idea.id }}">{{ idea.nome }}</label></td>
+                                <td>{{ idea.quadrante }}</td>
+                                <td>{{ idea.get_target_display }}</td>
+                                <td><span class="badge bg-primary">{{ idea.likes_count }}</span></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="mt-3">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-file-export"></i> Esporta in CSV
+                    </button>
+                    <button type="button" class="btn btn-outline-primary" id="selectAll">Seleziona tutte</button>
+                    <button type="button" class="btn btn-outline-secondary" id="deselectAll">Deseleziona tutte</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Seleziona/deseleziona tutte le checkbox
+        document.getElementById('selectAll').addEventListener('click', function() {
+            const checkboxes = document.querySelectorAll('input[name="idea_ids"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = true;
+            });
+        });
+        
+        document.getElementById('deselectAll').addEventListener('click', function() {
+            const checkboxes = document.querySelectorAll('input[name="idea_ids"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = false;
+            });
+        });
+    });
+</script>
+{% endblock %}
